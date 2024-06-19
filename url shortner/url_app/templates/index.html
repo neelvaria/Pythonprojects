@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <title>URL Shortener</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+           background: linear-gradient(to right, #232526, #414345);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .shortened-url {
+            margin-top: 20px;
+            display: none;
+            color: #28a745;
+            font-size: 16px;
+        }
+        #section{
+            color: #ccc;
+        }
+    </style>
+</head>
+<main>
+    <form id="post-form">
+        {% csrf_token %}
+        <div class="container">
+            <h1>URL Shortener</h1>
+            <input type="text" name="link" id="longUrl" placeholder="Enter your long URL here">
+            <button type="submit" id="shorten" >Shorten URL</button>
+            <div class="shortened-url" id="shortenedUrl"></div>
+        </div>
+    </form>
+    <section id="section"><h2></h2></section>
+
+    <script type="text/javascript"> 
+        $(document).on('submit','#post-form',function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type:'POST',
+                url: '/shorten',
+                data:{
+                    link:$('#longUrl').val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success:function(data){
+                    $('h2').html("localhost:8000/"+data)
+                }
+            });
+        });
+    </script>
+<main>
+</html> 
