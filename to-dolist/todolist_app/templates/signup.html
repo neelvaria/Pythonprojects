@@ -15,7 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80vh;
+            height: 96vh;
         }
         .form {
             background-color: #fff;
@@ -65,7 +65,7 @@
             text-decoration: underline;
         }
         .alert-box {
-            padding: 10px;
+            padding: 6px;
             margin-bottom: 10px;
             border-radius: 5px;
             font-weight: bold;
@@ -83,6 +83,42 @@
     </style>
 </head>
 <body>
-    
+    <div class="container">
+        <form class="form" method="post" action="">
+            <h2>Login</h2>
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Username"style="margin-bottom:17px;" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password"style="margin-bottom:20px;" required>
+                <i class="fa fa-eye" id="eye"></i>
+            </div>
+            <div class="remember-forgot">
+                <input type="checkbox" name="remember_me" id="remember_me"style="margin-left:-5px;">
+                <label for="remember_me"style="margin-right:100px;">Remember me</label>
+                <a href="" class="forgot-link"style="color:blue;">Forgot password?</a><br>
+            </div><br>
+            <input type="submit" value="Login"style="margin-bottom:15px;">
+            <br>Don't have an account?<p class = "signup-link"><a href=""style="color:blue;"><b>Sign up</b></a></p>
+                <div class="text-center mt-3">
+                    <div class="alert-box">
+
+                    </div>
+                </div>
+        </form>
+    </div>
+    <script>
+        const eye = document.getElementById('eye');
+        const password = document.querySelector('input[name="password"]');
+        eye.addEventListener('click', () => {
+            if (password.type === 'password') {
+                password.type = 'text';
+                eye.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                eye.classList.remove('fa-eye-slash');
+            }
+        });
+    </script>
 </body>
 </html>
